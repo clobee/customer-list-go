@@ -1,6 +1,6 @@
-#The Test
+# The Test
 
-###1. Technical problem
+### 1. Technical problem
 
 We have some customer records in a text file (customers.txt) -- one customer per line, JSON lines formatted. We want to invite any customer within 100km of our Dublin office for some food and drinks on us. Write a program that will read the full list of customers and output the names and user ids of matching customers (within 100km), sorted by User ID (ascending).
 
@@ -14,7 +14,7 @@ We're looking for you to produce working code, with enough room to demonstrate h
 
  
 
-Here are some guidelines when approaching the submission:
+**Here are some guidelines when approaching the submission:**
 
     Submit code as if you intended to ship it to production.
 
@@ -22,7 +22,7 @@ Here are some guidelines when approaching the submission:
 
  
 
-Each submission must meet the following requirements:
+**Each submission must meet the following requirements:**
 
     Code must be tested. Test cases cover likely problems.
 
