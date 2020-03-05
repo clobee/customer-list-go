@@ -30,3 +30,10 @@ We're looking for you to produce working code, with enough room to demonstrate h
 
     A file explaining how to install, how to execute the code and how to run tests. We may not be familiar with the language/framework you used and this helps us to evaluate it.
 
+### Application
+
+run tests : `go test -v ./tests`
+run the app: `go run *.go`
+create a build: `go build` //Which doesn't includes tests
+
+
