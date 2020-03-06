@@ -1,9 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"github.com/clobee/customer-list-go/data"
 )
 
 func main() {
-	data.ReadFile("fixtures/customers.txt")
+	results := data.ReadFile("fixtures/customers.txt")
+
+	for line := range results {
+		fmt.Printf("customer : '%v'\n", line)
+	}
 }

@@ -3,41 +3,35 @@ package data
 import (
 	"bufio"
 	"encoding/json"
-	"fmt"
 	"github.com/clobee/customer-list-go/customer"
 	"log"
 	"os"
-	"sync"
 )
 
-func check(err error) {
+func ReadFile(document string) chan customer.Customer {
+	file, err := os.Open(document)
+
 	if err != nil {
 		log.Fatal(err)
 	}
-}
 
-func ReadFile(document string) {
-	file, err := os.Open(document)
+	results := make(chan customer.Customer)
 
-	check(err)
-	defer file.Close()
+	go func() {
+		defer file.Close()
+		defer close(results)
+		scanner := bufio.NewScanner(file)
 
-	scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			results <- processLine(scanner.Text())
+		}
 
-	var wg sync.WaitGroup
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
 
-	for scanner.Scan() {
-		wg.Add(1)
-
-		go func(msg string) {
-			defer wg.Done()
-			customerData := processLine(msg)
-			fmt.Printf("customer : '%v'\n", customerData)
-		}(scanner.Text())
-	}
-
-	wg.Wait()
-	check(scanner.Err())
+	return results
 }
 
 func processLine(msg string) customer.Customer {
