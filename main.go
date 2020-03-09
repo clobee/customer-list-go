@@ -2,13 +2,15 @@ package main
 
 import (
 	"fmt"
+	"github.com/clobee/customer-list-go/customer"
 	"github.com/clobee/customer-list-go/data"
 )
 
 func main() {
-	results := data.ReadFile("fixtures/customers.txt")
+	content := data.ReadFile("fixtures/customers.txt")
 
-	for line := range results {
-		fmt.Printf("customer : '%v'\n", line)
+	for line := range content {
+		user := customer.GetInfo(line)
+		fmt.Printf("customer : '%v' (%d)\n", user.Name, user.UserID)
 	}
 }

@@ -2,20 +2,18 @@ package data
 
 import (
 	"bufio"
-	"encoding/json"
-	"github.com/clobee/customer-list-go/customer"
 	"log"
 	"os"
 )
 
-func ReadFile(document string) chan customer.Customer {
+func ReadFile(document string) chan string {
 	file, err := os.Open(document)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	results := make(chan customer.Customer)
+	results := make(chan string)
 
 	go func() {
 		defer file.Close()
@@ -23,7 +21,8 @@ func ReadFile(document string) chan customer.Customer {
 		scanner := bufio.NewScanner(file)
 
 		for scanner.Scan() {
-			results <- processLine(scanner.Text())
+			// msg := scanner.Text()
+			results <- scanner.Text()
 		}
 
 		if err != nil {
@@ -32,14 +31,4 @@ func ReadFile(document string) chan customer.Customer {
 	}()
 
 	return results
-}
-
-func processLine(msg string) customer.Customer {
-	data := customer.Customer{}
-
-	if err := json.Unmarshal([]byte(msg), &data); err != nil {
-		log.Fatal(err)
-	}
-
-	return data
 }
