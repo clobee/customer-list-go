@@ -1,45 +1,23 @@
 package data
 
-// import (
-// 	"bufio"
-// 	"os"
-// 	// "reflect"
-// 	"github.com/clobee/customer-list-go/customer"
-// 	"testing"
-// )
+import (
+	"encoding/json"
+	"testing"
+)
 
-// func TestDataProcessJson(t *testing.T) {
+func isJSON(s string) bool {
+	var js map[string]interface{}
+	return json.Unmarshal([]byte(s), &js) == nil
+}
 
-// 	expectedType := customer{}
+func TestReadFileReturnsJsonStrings(t *testing.T) {
 
-// 	file, err := os.Open("../fixtures/customers.txt")
+	content := ReadFile("../fixtures/customers.txt")
 
-// 	if err != nil {
-// 		t.Errorf("%s", err)
-// 	}
+	for z := range content {
 
-// 	defer file.Close()
-
-// 	scanner := bufio.NewScanner(file)
-
-// 	for scanner.Scan() {
-// 		data := processLine(scanner.Text())
-
-// 		// equalStruct := reflect.DeepEqual(customer, customerMocked)
-
-// 		// if equalStruct != true {
-// 		t.Errorf("%T type vs %T.", data, expectedType)
-// 		// }
-// 	}
-
-// 	if err != nil {
-// 		t.Errorf("%s", scanner.Err())
-// 	}
-
-// }
-
-// func TestCustomerDataStructureIsCorrectX(t *testing.T) {
-
-// 	t.Skip("skipping test in short mode.")
-
-// }
+		if true != isJSON(z) {
+			t.Errorf("This content is not a JSON String: %v", z)
+		}
+	}
+}
