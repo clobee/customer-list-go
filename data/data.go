@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+//ReadFile receive a json file and returns a channel with each line
 func ReadFile(document string) chan string {
 	file, err := os.Open(document)
 
@@ -21,7 +22,6 @@ func ReadFile(document string) chan string {
 		scanner := bufio.NewScanner(file)
 
 		for scanner.Scan() {
-			// msg := scanner.Text()
 			results <- scanner.Text()
 		}
 

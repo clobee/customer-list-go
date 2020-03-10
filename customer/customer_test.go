@@ -1,39 +1,39 @@
 package customer
 
 import (
+	"reflect"
 	"testing"
 )
 
-type customerMock struct {
-	Latitude  string `json:"latitude"`
-	Longitude string `json:"longitude"`
-	UserID    int    `json:"user_id"`
-	Name      string `json:"name"`
-}
+func TestGetInfoCreatesCustomers(t *testing.T) {
 
-func TestCustomerDataStructureIsCorrect(t *testing.T) {
+	fixtures := []string{
+		`{"latitude": "53.761389", "user_id": 30, "name": "Nick Enright", "longitude": "-7.2875"}`,
+		`{"latitude": "54.080556", "user_id": 23, "name": "Eoin Gallagher", "longitude": "-6.361944"}`,
+		`{"latitude": "52.833502", "user_id": 25, "name": "David Behan", "longitude" : "-6.361944"}`,
+	}
 
-	t.Skip("skipping test in short mode.")
+	for i := range fixtures {
+		c := GetInfo(fixtures[i])
 
-	// customer := customer{}
-	// customer.Latitude = "-5559538484"
-	// customer.Longitude = "2332454"
-	// customer.UserID = 123
-	// customer.Name = "Albert"
+		s := reflect.TypeOf(c.Latitude).String()
+		if "string" != s {
+			t.Errorf("Latitude should be a string. Founded: %s", s)
+		}
 
-	// customerMocked := customerMock{}
-	// customer.Latitude = "-5559538484"
-	// customer.Longitude = "2332454"
-	// customer.UserID = 123
-	// customer.Name = "Albert"
+		v := reflect.TypeOf(c.UserID).String()
+		if "int" != v {
+			t.Errorf("UserID should be a int. Founded: %s", v)
+		}
 
-	// equalStruct := reflect.DeepEqual(customer, customerMocked)
+		w := reflect.TypeOf(c.Name).String()
+		if "string" != w {
+			t.Errorf("Name should be a string. Founded: %s", w)
+		}
 
-	// if equalStruct != true {
-	// 	t.Errorf("%v and %v are not equal.", customer, customerMocked)
-	// }
-}
-
-func TestConstructorNewReturnsCorrectDataStructure(t *testing.T) {
-	t.Skip("skipping test in short mode.")
+		h := reflect.TypeOf(c.Longitude).String()
+		if "string" != h {
+			t.Errorf("Longitude should be a string. Founded: %s", h)
+		}
+	}
 }

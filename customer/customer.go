@@ -12,12 +12,7 @@ type Customer struct {
 	Name      string `json:"name"`
 }
 
-// New : Create a new customer
-func New(Latitude string, Longitude string, UserID int, Name string) Customer {
-	c := Customer{Latitude, Longitude, UserID, Name}
-	return c
-}
-
+//GetInfo takes a Json string and returns a customer
 func GetInfo(msg string) Customer {
 	data := Customer{}
 
