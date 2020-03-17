@@ -6,15 +6,22 @@ import (
 	"github.com/clobee/customer-list-go/customer"
 	"github.com/clobee/customer-list-go/data"
 	"log"
+	"sort"
 	"strconv"
 )
 
 const limitDistance = 100
 
+type ByUserID []customer.Customer
+
+func (a ByUserID) Len() int           { return len(a) }
+func (a ByUserID) Less(i, j int) bool { return a[i].UserID < a[j].UserID }
+func (a ByUserID) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+
 func main() {
 	content := data.ReadFile("fixtures/customers.txt")
 
-	selCustomers := make(map[int]customer.Customer)
+	selCustomers := make([]customer.Customer, 0, 1)
 
 	for line := range content {
 		u := customer.GetInfo(line)
@@ -28,11 +35,13 @@ func main() {
 
 		c := calculation.GetCoord(l, la)
 		if c < limitDistance {
-			selCustomers[u.UserID] = u
+			selCustomers = append(selCustomers, u)
 		}
 	}
 
+	sort.Sort(ByUserID(selCustomers))
+
 	for key, value := range selCustomers {
-		fmt.Printf("%d : %s \n", key, value.Name)
+		fmt.Printf("%d : %s %d \n", key, value.Name, value.UserID)
 	}
 }
