@@ -26,14 +26,14 @@ func main() {
 	for line := range content {
 		u := customer.GetInfo(line)
 
-		l, err := strconv.ParseFloat(u.Longitude, 64)
+		lo, err := strconv.ParseFloat(u.Longitude, 64)
 		la, err := strconv.ParseFloat(u.Latitude, 64)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		c := calculation.GetCoord(l, la)
+		c := calculation.GetDistance(la, lo)
 		if c < limitDistance {
 			selCustomers = append(selCustomers, u)
 		}
