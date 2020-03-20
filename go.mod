@@ -3,6 +3,7 @@ module github.com/clobee/customer-list-go
 go 1.13
 
 require (
+	github.com/google/go-cmp v0.4.0
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-runewidth v0.0.8 // indirect
 	github.com/mgechev/revive v1.0.2 // indirect

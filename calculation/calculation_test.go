@@ -1,6 +1,8 @@
 package calculation
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestGetDistance(t *testing.T) {
 	fixtures := []struct {
@@ -9,15 +11,20 @@ func TestGetDistance(t *testing.T) {
 		result    float64
 	}{
 		{53.339428, -6.257664, 0},
-		{53.1489345, -6.257664, 21.181911},
-		{53.008769, -6.1056711, 38.137568},
+		{53.1489345, -6.257664, 21.181910758765177},
+		{53.008769, -6.1056711, 38.13756809820155},
 	}
 
 	for _, data := range fixtures {
 		co := GetDistance(data.latitude, data.longitude)
 
 		if data.result != co {
-			t.Errorf("Incorrect distance for lat %f and long %f. Expected: %f, Found: %f", data.latitude, data.longitude, data.result, co)
+			t.Error(
+				"For latitude:", data.latitude,
+				"& longitude:", data.longitude,
+				"expected:", data.result,
+				"got:", co,
+			)
 		}
 	}
 }
