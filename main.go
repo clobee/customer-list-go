@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/clobee/customer-list-go/calculation"
+	"github.com/clobee/customer-list-go/config"
 	"github.com/clobee/customer-list-go/customer"
 	"github.com/clobee/customer-list-go/data"
 	"log"
@@ -10,7 +11,7 @@ import (
 	"strconv"
 )
 
-const limitDistance = 100
+const configFile = "/config.yaml"
 
 type ByUserID []customer.Customer
 
@@ -19,7 +20,8 @@ func (a ByUserID) Less(i, j int) bool { return a[i].UserID < a[j].UserID }
 func (a ByUserID) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 
 func main() {
-	content := data.ReadFile("fixtures/customers.txt")
+	config := config.GetConf(configFile)
+	content := data.ReadFile(config.CustomerDataFile)
 
 	selCustomers := make([]customer.Customer, 0, 1)
 
@@ -34,7 +36,7 @@ func main() {
 		}
 
 		c := calculation.GetDistance(la, lo)
-		if c < limitDistance {
+		if c < config.LimitDistance {
 			selCustomers = append(selCustomers, u)
 		}
 	}

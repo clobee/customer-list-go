@@ -1,0 +1,4 @@
+oLat: 53.339428
+oLong: -6.257664
+limitDistance: 100
+customerDataFile: "fixtures/customers.txt"
