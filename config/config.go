@@ -1,11 +1,11 @@
 package config
 
 import (
+	"bytes"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
 	"os"
-	"strings"
 )
 
 type Config struct {
@@ -21,7 +21,7 @@ func GetConf(filename string) Config {
 		log.Fatal(err)
 	}
 
-	var str strings.Builder
+	var str bytes.Buffer
 	str.WriteString(dir)
 	str.WriteString("/")
 	str.WriteString(filename)
