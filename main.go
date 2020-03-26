@@ -11,7 +11,7 @@ import (
 	"strconv"
 )
 
-const configFile = "/config.yaml"
+const configFile string = "config.yaml"
 
 type ByUserID []customer.Customer
 
@@ -35,7 +35,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		c := calculation.GetDistance(la, lo)
+		c := calculation.GetDistance(la, lo, configFile)
 		if c < config.LimitDistance {
 			selCustomers = append(selCustomers, u)
 		}

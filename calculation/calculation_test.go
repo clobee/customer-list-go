@@ -16,7 +16,7 @@ func TestGetDistance(t *testing.T) {
 	}
 
 	for _, data := range fixtures {
-		co := GetDistance(data.latitude, data.longitude)
+		co := GetDistance(data.latitude, data.longitude, "../config.yaml")
 
 		if data.result != co {
 			t.Error(
