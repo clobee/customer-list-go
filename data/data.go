@@ -25,7 +25,7 @@ func ReadFile(document string) chan string {
 			results <- scanner.Text()
 		}
 
-		if err != nil {
+		if err := scanner.Err(); err != nil {
 			log.Fatal(err)
 		}
 	}()
